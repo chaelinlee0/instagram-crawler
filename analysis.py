@@ -1,3 +1,4 @@
+from main import crawl_insta
 def text_analysis():
     results_str = " ".join(results)
     tokens = results_str.split(" ")
