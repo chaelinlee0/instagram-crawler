@@ -19,9 +19,8 @@ python3 main.py
 
 ### 데모
 
-Uploading demo.mov…
-
+https://user-images.githubusercontent.com/108703180/181143366-f8f335b7-c2d0-44eb-8216-a8aec06dee31.mov
 
 ### Author
 
-이채린 Chaelin Lee
+이채린 Chaelin Lee (chaelin.lee@dukekunshan.edu.cn)
