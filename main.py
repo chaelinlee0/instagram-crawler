@@ -9,10 +9,10 @@ from bs4 import BeautifulSoup
 import unicodedata
 import pandas as pd
 import os
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import time
 from datetime import datetime
-
+import getpass
 
 # 검색 함수
 def insta_searching(word):
@@ -71,7 +71,7 @@ def crawl_insta():
     print('시작시간', datetime.today().strftime("%Y/%m/%d %H:%M:%S"))
     print('------인스타그램 로그인------')
     email = input('Username, or email: ')
-    pw = input('Password: ')
+    pw = getpass.getpass("Password:")
 
     # 인스타그램 페이지 연결
     driver = webdriver.Chrome(service= Service(ChromeDriverManager().install()))
@@ -95,7 +95,6 @@ def crawl_insta():
     word = input('키워드를 입력해주세요: ')  # 검색어
     url = insta_searching(word)
     target = input('몇개의 게시글을 크롤링할까요? (숫자만 입력 가능합니다): ')
-    target = 5
 
     # ③ 검색페이지 접속하기
     driver.get(url)
@@ -108,7 +107,7 @@ def crawl_insta():
     results = []
     # ⑥→⑦→⑧ 여러 게시물 수집하기
 
-    for i in tqdm(range(int(target))):
+    for i in tqdm(range(int(target)), desc="크롤링 진행상황"):
         # 게시글 수집에 오류 발생시(네트워크 문제 등의 이유로)  2초 대기 후, 다음 게시글로 넘어가도록 try, except 구문 활용
         try:
             data = get_content(driver)  # 게시글 정보 가져오기
@@ -133,23 +132,6 @@ def crawl_insta():
         with pd.ExcelWriter('./files/' + word + '.xlsx', mode='w', engine='openpyxl') as writer:  # 엑셀 파일 있으면 덮어씌우기
             results_df.to_excel(writer, sheet_name=word)
     print('완료', datetime.today().strftime("%Y/%m/%d %H:%M:%S"))
-    
-    #시각화
-    results_str = " ".join(results)
-    tokens = results_str.split(" ")
-    text = nltk.Text(tokens)
-    topWord = text.vocab().most_common(i)
-    target = 30
-    xlist = [a[0] for a in topWord[:i]]
-    ylist = [a[1] for a in topWord[:i]]
-
-    plt.figure(figsize=(10, 5))  # 그래프 크기 지정
-    plt.xlabel('Word')  # X축 이름
-    plt.xticks(rotation=70)  # X축 라벨 회전
-    plt.ylabel('Count')  # Y축 이름
-    plt.title('keyword TOP ' + str(i) + ' WORD')
-    plt.ylim([0, i])  # 그래프의 Y축 크기 조절
-    plt.bar(xlist, ylist)  # bar로 실행하면 막대그래프. plot으로 실행하면 꺾은선 그래프.
 
 if __name__ == "__main__":
     crawl_insta()
