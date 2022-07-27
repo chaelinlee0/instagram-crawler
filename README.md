@@ -1,6 +1,6 @@
 # instagram_crawler
 
-Selenium을 이용한 인스타그램 웹 크로울러. 키워드를 입력하면 키워드에 맞는 인스타그램 포스트의 데이터를 긁어옵니다.
+Selenium을 이용한 인스타그램 웹 크롤러. 키워드를 입력하면 키워드에 맞는 인스타그램 포스트의 데이터를 긁어옵니다.
 
 ## 시작하기
 
@@ -16,3 +16,12 @@ pip3 install -r requirements.txt
 ```
 python3 main.py
 ```
+
+### 데모
+
+Uploading demo.mov…
+
+
+### Author
+
+이채린 Chaelin Lee
