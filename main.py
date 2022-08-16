@@ -17,7 +17,8 @@ import getpass
 # 검색 함수
 # 이 함수를 통하여 인스타그램 태깅 웹 페이지를 불러오도록합니다. 그래서 URL은 태깅된 웹페이지입니다.  
 def insta_searching(word):
-    url = 'https://www.instagram.com/explore/tags/' + word
+    url = 'https://www.instagram.com/explore/tags/' + word #한 유저의 아이디를 통하여 게시물 활용시 'https://www.instagram.com/' + user_id
+    return
     return url
 
 # 이 함수는 첫 게시물을 클릭하도록 합니다. XPATH 옆 코드는 게시물의 html 주소입니다. time.sleep(3)을 통해 크롤링이 더욱 원활하게 작동되도록 합니다.  
