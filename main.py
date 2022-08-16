@@ -26,7 +26,7 @@ def select_first(driver):
     first.click()
     time.sleep(3)
 
-# 다음 게시물로 넘어가도록합니다. xpath 옆은 게시물의 html 주소입니다.
+# 다음 게시물로 넘어가도록합니다. 게시물의 html 주소로 경로를 지정합니다. 
 def move_next(driver):
     right = driver.find_element(By.XPATH,"//button[@class='_abl-']//*[@aria-label='Next']" )
     right.click()
@@ -34,12 +34,12 @@ def move_next(driver):
 
     
 def get_content(driver):
-    try:  # 게시글이 표시될때까지 대기. 최대 20초. 게시글이 표시 될 경우 즉시 이하의 코드를 실행
+    try:  # 게시글이 표시될때까지 대기. 최대 15초. 게시글이 표시 될 경우 즉시 이하의 코드를 실행
         element = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='_a9zs']")))
     except:
         print('게시글이 로드되지 않았습니다. 다음 게시글로 넘어갑니다.',
               datetime.today().strftime("%Y/%m/%d %H:%M:%S"))  
-        # 20초 동안 게시글이 표시 되지 않으면 다음으로 넘어감
+        # 15초 동안 게시글이 표시 되지 않으면 다음으로 넘어감
         # 몇몇 게시글이 로드되지 않는 경우가 발생하고 이때 적절한 시간을 두지 않고 넘겨버리면 이후의 게시글도 로드가 되지 않는 문제를 방지하고
         # 인스타그램 서버에서 크롤링 계정을 차단 하는 것을 방지하기 위해 추가되었습니다.
         
@@ -48,7 +48,7 @@ def get_content(driver):
     soup = BeautifulSoup(html, "html.parser")
 
     # ② 본문 내용 가져오기
-    # soup.select 속 div._29zs는 본문 html 주소입니다. unicodedata.normalize을 통해 본문내용을 정규화시킵니다. 
+    # 본문 html 주소 경로를 통해 텍스트를 불러옵니다. unicodedata.normalize을 통해 input에서 받은 한글이 깨지지 않도록 정규화시킵니다. 
     try:
         content = soup.select('div._a9zs > span')[0].text
         content = unicodedata.normalize('NFC', content)
@@ -60,13 +60,13 @@ def get_content(driver):
     date = soup.select('time')[0]['datetime'][:10]
     # ⑤ 좋아요 수 가져오기
     try:
-        like = soup.select('div._aacl._aaco._aacw._aacx._aada._aade > span')[0].text #soup.select 속에 있는 주소는 좋아요 html 주소입니다. 
-        like = int(like.replace(',', '')) #받은 입력값을 숫자로 표기하려고 합니다. 
+        like = soup.select('div._aacl._aaco._aacw._aacx._aada._aade > span')[0].text
+        like = int(like.replace(',', '')) # 받은 입력값을 숫자로 표기하려고 합니다. 
     except:
         like = 0
     # ⑥ 위치정보 가져오기
     try:
-        place = soup.select('div._aaqm')[0].text #위 코드와 마찬가지입니다. 
+        place = soup.select('div._aaqm')[0].text
         place = unicodedata.normalize('NFC', place)
     except:
         place = ''
