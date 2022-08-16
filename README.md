@@ -11,6 +11,9 @@ Selenium을 이용한 인스타그램 웹 크롤러. 키워드를 입력하면 �
 ```
 pip3 install -r requirements.txt
 ```
+### 셀레니엄 웹 드라이버 실행
+- https://chromedriver.chromium.org/downloads
+- 크롬 버전에 맞게 다운받도록 합니다. 
 
 ### 프로그램 실행
 ```
