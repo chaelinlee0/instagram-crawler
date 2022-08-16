@@ -135,7 +135,7 @@ def crawl_insta():
         with pd.ExcelWriter('./files/' + word + '.xlsx', mode='w', engine='openpyxl') as writer:  # 엑셀 파일 없으면 생성
             results_df.to_excel(writer, sheet_name=word)
     else:
-        with pd.ExcelWriter('./files/' + word + '.xlsx', mode='w', engine='openpyxl') as writer:  # 엑셀 파일 있으면 덮어씌우기
+        with pd.ExcelWriter('./files/' + word + '.xlsx', mode='w', engine='openpyxl') as writer:  # 엑셀 파일 있으면 덮어씌우기. openpyxl를 통하여 python으로 excel 조작
             results_df.to_excel(writer, sheet_name=word)
     print('완료', datetime.today().strftime("%Y/%m/%d %H:%M:%S"))
 
